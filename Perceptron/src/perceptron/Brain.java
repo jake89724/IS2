@@ -9,6 +9,8 @@ package perceptron;
  * @author j.head
  */
 public class Brain {
+    //error = answer - guess
+    //weight = weight + (error*input)
     
     
     public double[] weights = new double[2];
@@ -29,6 +31,24 @@ public class Brain {
             return 1;
         }
         return -1;
+    }
+    
+    public void train(int answer, int guess, Point input){
+        double error = answer - guess;
+        System.out.println("Answer = " + answer);
+        System.out.println("Guess = " + guess);
+        System.out.println("error = " + error);
+        double [] inputs = {
+          input.x, input.y  
+        };
+    
+             weights[0] += error * guess * 0.1;
+             System.out.println("Weight " + weights[0]);
+            weights[1] += error * input.y * 0.1;
+        
+           
+        
+        
     }
     
     
