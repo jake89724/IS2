@@ -15,7 +15,7 @@ public class Perceptron {
      */
     public static void main(String[] args) {
         Problem problem = new Problem();
-        Brain brain = new Brain();
+        //Brain brain = new Brain();
     }
     
 }

@@ -16,20 +16,25 @@ import javax.swing.JPanel;
  * @author j.head
  */
 public class Problem extends JPanel implements KeyListener{
-    Brain brain = new Brain();
+    
+    Brain brain;
     Graphics g;
-    public static Point[] points = new Point[100];
+    public static JFrame frame = new JFrame();
+    public static Point[] points = new Point[200];
     public Problem(){
+        System.out.println("problem");
         for (int i = 0; i < points.length; i++) {
             points[i] = new Point(Random.random(0, 700), Random.random(0, 700));
         }
-        JFrame frame = new JFrame();
+        
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(700, 700);
         frame.setLocationRelativeTo(null);
+        
         frame.setVisible(true);
         frame.add(this);
         frame.addKeyListener(this);
+        brain = new Brain();
     }
     
     @Override
@@ -37,25 +42,43 @@ public class Problem extends JPanel implements KeyListener{
         this.g = g;
         super.paintComponent(g);
         g.drawLine(350, 0, 350, 700);
+        g.drawLine(0, 0, 730, 700);
         //main loop through all points
         for (int i = 0; i < points.length; i++) {
             
-            int guess = brain.process(points[i].x, points[i].y);
+            int guess = brain.process(points[i].x, points[i].y, 2);
             if(guess == 1){
                 g.setColor(Color.red);
             }
             else{
                 g.setColor(Color.green);
             }
+            points[i].guess(guess);
             
             //train /////////////////////////////////////////////////////////
            // double error = points[i].answer - guess;
-            brain.train(points[i].answer, guess, points[i]);
+            //brain.train(points[i].answer, guess, points[i]);
            // error = points[i].x * error;
             
-            
+           // g.setColor(points[i].color);
             //g.setColor(points[i].color);
+            if(points[i].answer == -1){
+                if(points[i].x >= 350){
+              //  g.setColor(Color.DARK_GRAY);
+            }
+                
+            } else{
+                 if(points[i].x < 350){
+                   //  g.setColor(Color.black);
+                 }
+            }
+            
             g.fillOval(points[i].x, points[i].y, 10, 10);
+        }
+        
+        for(Point point: points){
+            //guess inside if point
+             brain.train(point.answer, point);
         }
         
     }

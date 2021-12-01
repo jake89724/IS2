@@ -15,6 +15,7 @@ public class Point {
     int x;
     int y;
     int answer;
+    int guess;
     public Point(int x, int y){
         this.x = x;
         this.y = y;
@@ -41,5 +42,9 @@ public class Point {
             color = Color.green;
             answer = -1;
         }
+    }
+    
+    public void guess(int guess){
+          this.guess = guess;
     }
 }

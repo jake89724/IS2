@@ -16,35 +16,47 @@ public class Brain {
     public double[] weights = new double[2];
     
     public Brain(){
+        System.out.println("visuals");
+        Visuals visuals = new Visuals();
+        
+       // Visuals visuals = new Visuals();
         for (int i = 0; i < weights.length; i++) {
             weights[i] = Random.randomDouble(-1, 1);
-            System.out.println(weights[i]);
+           // System.out.println(weights[i]);
         }
     }
     
-    public int process(int input1, int input2){
+    public int process(int input1, int input2, int bias){
         //weighted sum
-        double product = weights[0] * input1;
-        product += weights[1] * input2;
+        double product = (weights[0] * input1) + (weights[1] * input2) * 0.1 + bias  ;
+      //  product += weights[1] * input2;
      //   System.out.println(product);
-        if(product >= 0){
+        return(activationFunction(product));
+        
+    }
+    
+    public int activationFunction(double product){
+        if(product > 0){
             return 1;
         }
-        return -1;
+        else{
+           return -1; 
+        }
     }
     
-    public void train(int answer, int guess, Point input){
-        double error = answer - guess;
-        System.out.println("Answer = " + answer);
-        System.out.println("Guess = " + guess);
-        System.out.println("error = " + error);
+    public void train(int answer, Point input){
+        double error = answer - input.guess;
+        //System.out.println("Answer = " + answer);
+       // System.out.println("Guess = " + input.guess);
+       // System.out.println("error = " + error);
         double [] inputs = {
           input.x, input.y  
         };
-    
-             weights[0] += error * guess * 0.1;
-             System.out.println("Weight " + weights[0]);
-            weights[1] += error * input.y * 0.1;
+       
+             weights[0] += error * inputs[0] * 0.1;
+            // System.out.println("Weight " + weights[0]);
+            // System.out.println("Weight2 " + weights[1]);
+            weights[1] += error * inputs[1] * 0.1;
         
            
         
