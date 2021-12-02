@@ -5,7 +5,9 @@
 package perceptron;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JFrame;
@@ -20,7 +22,7 @@ public class Problem extends JPanel implements KeyListener{
     Brain brain;
     Graphics g;
     public static JFrame frame = new JFrame();
-    public static Point[] points = new Point[200];
+    public static Point[] points = new Point[2000];
     public Problem(){
         System.out.println("problem");
         for (int i = 0; i < points.length; i++) {
@@ -29,7 +31,9 @@ public class Problem extends JPanel implements KeyListener{
         
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(700, 700);
-        frame.setLocationRelativeTo(null);
+        Dimension size = Toolkit. getDefaultToolkit(). getScreenSize();
+        
+        frame.setLocation((int)size.getWidth()/2 - frame.getWidth(), (int)size.getHeight()/2 - frame.getHeight()/2);
         
         frame.setVisible(true);
         frame.add(this);
@@ -78,7 +82,14 @@ public class Problem extends JPanel implements KeyListener{
         
         for(Point point: points){
             //guess inside if point
-             brain.train(point.answer, point);
+             boolean right = brain.train(point.answer, point);
+             
+             if(!right){
+                // point.color = Color.BLACK;
+                 g.setColor(Color.black);
+                 g.fillOval(point.x, point.y, 10, 10);
+                 
+             }
         }
         
     }
