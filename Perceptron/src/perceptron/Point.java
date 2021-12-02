@@ -22,24 +22,24 @@ public class Point {
         
         //color = correct answer
         if(x <= 350){
-            color = Color.red;
+            color = Color.blue;
             answer = -1;
         }
         else{
-            color = Color.green;
+            color = Color.pink;
             answer = 1;
         }
     }
     
     public void setLocation(int x, int y){
-        this.x =x;
+        this.x = x;
         this.y = y;
-        if(y <= 350){
-            color = Color.red;
+        if(x <= 350){
+            color = Color.blue;
             answer = -1;
         }
         else{
-            color = Color.green;
+            color = Color.pink;
             answer = 1;
         }
     }

@@ -21,8 +21,9 @@ public class Problem extends JPanel implements KeyListener{
     
     Brain brain;
     Graphics g;
+    public static int counter;
     public static JFrame frame = new JFrame();
-    public static Point[] points = new Point[2000];
+    public static Point[] points = new Point[100];
     public Problem(){
         System.out.println("problem");
         for (int i = 0; i < points.length; i++) {
@@ -66,7 +67,7 @@ public class Problem extends JPanel implements KeyListener{
             
            // g.setColor(points[i].color);
             //g.setColor(points[i].color);
-            if(points[i].answer == -1){
+            if(points[i].answer == 1){
                 if(points[i].x >= 350){
               //  g.setColor(Color.DARK_GRAY);
             }
@@ -80,17 +81,22 @@ public class Problem extends JPanel implements KeyListener{
             g.fillOval(points[i].x, points[i].y, 10, 10);
         }
         
-        for(Point point: points){
+        
+        
+             for(Point point: points){
             //guess inside if point
              boolean right = brain.train(point.answer, point);
+             System.out.println("Train");
              
              if(!right){
+                 counter++;
                 // point.color = Color.BLACK;
                  g.setColor(Color.black);
                  g.fillOval(point.x, point.y, 10, 10);
                  
              }
         }
+        
         
     }
 
@@ -101,8 +107,22 @@ public class Problem extends JPanel implements KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
         System.out.println("typed");
-        for (int i = 0; i < points.length; i++) {
-            points[i].setLocation(Random.random(0, 700), Random.random(0, 700));
+        for(Point point: points){
+            //guess inside if point
+             boolean right = brain.train(point.answer, point);
+             
+             System.out.println("Train");
+             
+             if(!right){
+                 counter++;
+                // point.color = Color.BLACK;
+                 g.setColor(Color.black);
+                 g.fillOval(point.x, point.y, 10, 10);
+                 
+             }
+             int guess = brain.process(point.x, point.y, 2);
+             point.guess(guess);
+             
         }
         repaint();
     }

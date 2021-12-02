@@ -49,7 +49,7 @@ public class Brain {
     }
     
     public boolean train(int answer, Point input){
-        double error = answer - input.guess;
+        int error = answer - input.guess;
         System.out.println("Answer = " + answer);
         System.out.println("Guess = " + input.guess);
         System.out.println("error = " + error);

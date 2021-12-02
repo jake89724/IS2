@@ -59,6 +59,8 @@ public class Visuals extends JPanel  {
             g2.drawString(input[0] + "", 75, 85);
             g2.drawString(input[1] + "", 75, 235);
             g2.drawString(output + "", 475, 175);
+            g.drawString("Erorr: " + Problem.counter + "", 300, 50);
+            Problem.counter = 0;
         }
         
         
