@@ -16,7 +16,9 @@ public class Point {
     int y;
     int answer;
     int guess;
+    Brain brain;
     public Point(int x, int y){
+        brain = new Brain();
         this.x = x;
         this.y = y;
         
